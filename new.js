@@ -1,8 +1,3 @@
-
-/* =====================================
-   1. ARTISAN PROFILE DATA
-===================================== */
-
 const artisanProfiles = {
     ram: {
         name: "RAM KUMAR",
@@ -13,7 +8,6 @@ const artisanProfiles = {
         about: "I create beautiful handmade pottery inspired by traditional Indian art.",
         image: "POTTERY.png"
     },
-
     smita: {
         name: "SMITA DEVI",
         skill: "Handloom Artist",
@@ -23,7 +17,6 @@ const artisanProfiles = {
         about: "I create beautiful handmade handloom products using traditional techniques.",
         image: "HANDLOOMM.png"
     },
-
     neha: {
         name: "NEHA SINGH",
         skill: "Jewellery Artist",
@@ -34,12 +27,6 @@ const artisanProfiles = {
         image: "JEWELLERYY.png"
     }
 };
-
-
-/* =====================================
-   2. SHOW ARTISAN PROFILE
-===================================== */
-
 function showProfile(artisanKey) {
     const artisan = artisanProfiles[artisanKey];
 
@@ -60,12 +47,6 @@ function showProfile(artisanKey) {
         behavior: "smooth"
     });
 }
-
-
-/* =====================================
-   3. SEARCH ARTISANS
-===================================== */
-
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("artisan-search");
 const categoryFilter = document.getElementById("category-filter");
@@ -118,12 +99,6 @@ searchForm.addEventListener("submit", function(event) {
 searchInput.addEventListener("input", searchArtisan);
 categoryFilter.addEventListener("change", searchArtisan);
 locationFilter.addEventListener("input", searchArtisan);
-
-
-/* =====================================
-   4. RESET SEARCH
-===================================== */
-
 document.getElementById("reset-search").addEventListener("click", function() {
     searchInput.value = "";
     categoryFilter.value = "";
@@ -135,12 +110,6 @@ document.getElementById("reset-search").addEventListener("click", function() {
 
     searchMessage.innerText = "Showing all artisans.";
 });
-
-
-/* =====================================
-   5. FAVOURITE ARTISAN
-===================================== */
-
 function getSavedFavourites() {
     return JSON.parse(localStorage.getItem("craftnest-favourites") || "[]");
 }
@@ -186,12 +155,6 @@ function loadFavourites() {
 }
 
 loadFavourites();
-
-
-/* =====================================
-   6. ARTISAN RATINGS
-===================================== */
-
 function getSavedRatings() {
     return JSON.parse(localStorage.getItem("craftnest-ratings") || "{}");
 }
@@ -265,12 +228,6 @@ function createRatings() {
 }
 
 createRatings();
-
-
-/* =====================================
-   7. CONTACT FORM DEMO
-===================================== */
-
 const contactForm = document.getElementById("contact-form");
 const contactMessage = document.getElementById("contact-message");
 
