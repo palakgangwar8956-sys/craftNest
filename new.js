@@ -1,140 +1,15 @@
-alert("Welcome to CraftNest!");
 
-// ==================================
-// 1. ARTISAN PROFILES
-// ==================================
-
-let artisanProfiles = {
-
-    ram: {
-        name: "RAM KUMAR",
-        skill: "Pottery Artist",
-        location: "Agra, Uttar Pradesh",
-        experience: "8 Years",
-        speciality: "Handmade Clay Art",
-        about: "I create beautiful handmade pottery inspired by traditional Indian art.",
-        image: "POTTERY.png"
-    },
-
-    smita: {
-        name: "SMITA DEVI",
-        skill: "Handloom Artist",
-        location: "Kasol, Himachal Pradesh",
-        experience: "6 Years",
-        speciality: "Traditional Handloom",
-        about: "I make traditional handloom products with care and creativity.",
-        image: "HANDLOOMM.png"
-    },
-
-    neha: {
-        name: "NEHA SINGH",
-        skill: "Jewellery Artist",
-        location: "Patna, Bihar",
-        experience: "5 Years",
-        speciality: "Handmade Jewellery",
-        about: "I design unique handmade jewellery using traditional techniques.",
-        image: "JEWELLERYY.png"
-    }
-
-};
-
-
-// ==================================
-// 2. SHOW ARTISAN PROFILE
-// ==================================
-
-function showProfile(artisanId) {
-
-    let artisan = artisanProfiles[artisanId];
-
-    if (artisan == undefined) {
-        return;
-    }
-
-    document.getElementById("profile-image").src = artisan.image;
-
-    document.getElementById("profile-name").innerText = artisan.name;
-
-    document.getElementById("profile-skill").innerText = artisan.skill;
-
-    document.getElementById("profile-location").innerText =
-        "Location: " + artisan.location;
-
-    document.getElementById("profile-experience").innerText =
-        "Experience: " + artisan.experience;
-
-    document.getElementById("profile-speciality").innerText =
-        "Speciality: " + artisan.speciality;
-
-    document.getElementById("profile-about").innerText = artisan.about;
-
-}
-
-
-// Profile links
-let profileLinks = document.querySelectorAll(".visit-profile");
-
-for (let i = 0; i < profileLinks.length; i++) {
-
-    profileLinks[i].addEventListener("click", function () {
-
-        let artisanId = this.getAttribute("data-artisan");
-
-        showProfile(artisanId);
-
-    });
-
-}
-
-
-// Featured artisan profiles
-let featuredLinks = document.querySelectorAll(
-    ".featured-artisans .artisan-card a"
-);
-
-for (let i = 0; i < featuredLinks.length; i++) {
-
-    featuredLinks[i].addEventListener("click", function () {
-
-        let artisanName = this.parentElement
-            .querySelector("h3")
-            .innerText.toLowerCase();
-
-        if (artisanName.includes("ram")) {
-            showProfile("ram");
-        }
-
-        else if (artisanName.includes("smita")) {
-            showProfile("smita");
-        }
-
-        else if (artisanName.includes("neha")) {
-            showProfile("neha");
-        }
-
-    });
-
-}
-
-
-// ==================================
-// 3. SEARCH ARTISAN
-// ==================================
+ // SEARCH ARTISAN
 
 function searchArtisan() {
 
-    let name = document.getElementById("artisan-search")
-        .value.toLowerCase().trim();
+    let name = document.getElementById("artisan-search").value.toLowerCase().trim();
 
-    let category = document.getElementById("category-filter")
-        .value.toLowerCase().trim();
+    let category = document.getElementById("category-filter").value.toLowerCase().trim();
 
-    let location = document.getElementById("location-filter")
-        .value.toLowerCase().trim();
+    let location = document.getElementById("location-filter").value.toLowerCase().trim();
 
-    let cards = document.querySelectorAll(
-        ".artisan-list .artisan-card"
-    );
+    let cards = document.querySelectorAll(".artisan-list .artisan-card");
 
     let found = 0;
 
@@ -143,10 +18,7 @@ function searchArtisan() {
         let cardText = cards[i].innerText.toLowerCase();
 
         let nameMatch = cardText.includes(name);
-
-        let categoryMatch =
-            category == "" || cardText.includes(category);
-
+        let categoryMatch = cardText.includes(category);
         let locationMatch = cardText.includes(location);
 
         if (nameMatch && categoryMatch && locationMatch) {
@@ -154,35 +26,27 @@ function searchArtisan() {
             cards[i].style.display = "";
             found++;
 
-        }
-
-        else {
+        } else {
 
             cards[i].style.display = "none";
 
         }
-
     }
 
     let message = document.getElementById("search-message");
 
     if (message) {
-
         if (found == 0) {
-            message.innerText =
-                "No artisans found. Try another search!";
-        }
-
-        else {
+            message.innerText = "No artisans found. Try another search!";
+        } else {
             message.innerText = found + " artisan(s) found";
         }
-
     }
-
 }
 
 
-// Search form
+// SEARCH FORM
+
 let searchForm = document.querySelector(".search-form");
 
 let searchInput = document.getElementById("artisan-search");
@@ -192,7 +56,8 @@ let categoryFilter = document.getElementById("category-filter");
 let locationFilter = document.getElementById("location-filter");
 
 
-// Search message
+// Show search message
+
 let searchMessage = document.createElement("p");
 
 searchMessage.id = "search-message";
@@ -200,8 +65,9 @@ searchMessage.id = "search-message";
 searchForm.appendChild(searchMessage);
 
 
-// Search button
-searchForm.addEventListener("submit", function (event) {
+// Search when button is clicked
+
+searchForm.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
@@ -211,232 +77,102 @@ searchForm.addEventListener("submit", function (event) {
 
 
 // Search while typing
+
 searchInput.addEventListener("input", searchArtisan);
 
 
-// Search category
+// Search when category changes
+
 categoryFilter.addEventListener("change", searchArtisan);
 
 
-// Search location
+// Search when location changes
+
 locationFilter.addEventListener("input", searchArtisan);
 
+/* ARTISAN RATING */
 
-// ==================================
-// 4. FAVOURITE ARTISAN
-// ==================================
+let artisanCards = document.querySelectorAll(".artisan-card");
 
-function favourite(button) {
+artisanCards.forEach(function(card, index) {
 
-    let card = button.closest(".artisan-card");
+    let artisanName = card.querySelector("h3");
 
-    let artisanName = card.querySelector("h3").innerText;
-
-    let saved = JSON.parse(
-        localStorage.getItem("craftnest-favourites") || "[]"
-    );
-
-    if (saved.includes(artisanName)) {
-
-        saved = saved.filter(function (name) {
-            return name != artisanName;
-        });
-
-        button.innerText = "♡ Favourite";
-
+    if (!artisanName) {
+        artisanName = card.querySelector("h2");
     }
 
-    else {
+    let name = artisanName
+        ? artisanName.innerText.trim()
+        : "artisan-" + index;
 
-        saved.push(artisanName);
+    let ratingBox = document.createElement("div");
+    ratingBox.className = "rating-box";
 
-        button.innerText = "♥ Favourited";
+    ratingBox.innerHTML = `
+        <p>Rate this artisan:</p>
+        <div class="rating-stars"></div>
+        <p class="rating-message">No rating yet</p>
+    `;
 
-    }
+    card.appendChild(ratingBox);
 
-    localStorage.setItem(
-        "craftnest-favourites",
-        JSON.stringify(saved)
+    let stars = ratingBox.querySelector(".rating-stars");
+    let message = ratingBox.querySelector(".rating-message");
+
+    let savedRatings = JSON.parse(
+        localStorage.getItem("craftnest-ratings") || "{}"
     );
 
-}
+    let currentRating = savedRatings[name] || 0;
 
+    for (let i = 1; i <= 5; i++) {
 
-// Restore favourites after refresh
-let favouriteButtons = document.querySelectorAll(".favorite-btn");
+        let star = document.createElement("button");
 
-for (let i = 0; i < favouriteButtons.length; i++) {
+        star.innerText = "★";
+        star.style.color = "#f5a623";
+        star.style.fontSize = "25px";
+        star.style.background = "none";
+        star.style.border = "none";
+        star.style.cursor = "pointer";
 
-    let cardName = favouriteButtons[i]
-        .closest(".artisan-card")
-        .querySelector("h3").innerText;
+        if (i <= currentRating) {
+            star.style.opacity = "1";
+        } else {
+            star.style.opacity = "0.4";
+        }
 
-    let savedNames = JSON.parse(
-        localStorage.getItem("craftnest-favourites") || "[]"
-    );
+        star.addEventListener("click", function() {
 
-    if (savedNames.includes(cardName)) {
+            currentRating = i;
 
-        favouriteButtons[i].innerText = "♥ Favourited";
-
-    }
-
-}
-
-
-// ==================================
-// 5. CUSTOMER RATINGS
-// ==================================
-
-let artisanCards = document.querySelectorAll(
-    ".artisan-list .artisan-card"
-);
-
-for (let i = 0; i < artisanCards.length; i++) {
-
-    let ratingArea = document.createElement("p");
-
-    ratingArea.className = "rating-area";
-
-    ratingArea.innerHTML =
-        'Rate: <button type="button">1</button> ' +
-        '<button type="button">2</button> ' +
-        '<button type="button">3</button> ' +
-        '<button type="button">4</button> ' +
-        '<button type="button">5</button>';
-
-    artisanCards[i].appendChild(ratingArea);
-
-    let ratingButtons = ratingArea.querySelectorAll("button");
-
-    for (let j = 0; j < ratingButtons.length; j++) {
-
-        ratingButtons[j].addEventListener("click", function () {
-
-            let rating = j + 1;
-
-            let artisanName = artisanCards[i]
-                .querySelector("h3").innerText;
-
-            let allRatings = JSON.parse(
-                localStorage.getItem("craftnest-ratings") || "{}"
-            );
-
-            allRatings[artisanName] = rating;
+            savedRatings[name] = currentRating;
 
             localStorage.setItem(
                 "craftnest-ratings",
-                JSON.stringify(allRatings)
+                JSON.stringify(savedRatings)
             );
 
-            ratingMessage.innerText =
-                "Your rating: " + rating + "/5";
+            message.innerText =
+                "Your rating: " + currentRating + "/5";
+
+            let allStars = stars.querySelectorAll("button");
+
+            allStars.forEach(function(button, index) {
+                button.style.opacity =
+                    index < currentRating ? "1" : "0.4";
+            });
 
         });
 
+        stars.appendChild(star);
     }
 
-    let ratingMessage = document.createElement("span");
-
-    ratingMessage.innerText = " Not rated yet";
-
-    ratingArea.appendChild(ratingMessage);
-
-}
-
-
-// ==================================
-// 6. INQUIRY FORM
-// ==================================
-
-let contactForm = document.querySelector(".contact-form");
-
-contactForm.addEventListener("submit", function (event) {
-
-    event.preventDefault();
-
-    let customerName = document.getElementById("name").value;
-
-    let email = document.getElementById("email").value;
-
-    let message = document.getElementById("message").value;
-
-    if (
-        customerName.trim() == "" ||
-        email.trim() == "" ||
-        message.trim() == ""
-    ) {
-
-        alert("Please fill all required fields.");
-
-        return;
-
+    if (currentRating > 0) {
+        message.innerText =
+            "Your rating: " + currentRating + "/5";
     }
-
-    alert(
-        "Thank you, " + customerName +
-        "! Your inquiry has been recorded."
-    );
-
-    contactForm.reset();
 
 });
 
-
-// ==================================
-// 7. ADMIN VERIFICATION
-// ==================================
-
-let adminTable = document.querySelector(".admin-section table");
-
-let adminRows = adminTable.querySelectorAll("tr");
-
-
-// Add action heading
-let actionHeading = document.createElement("th");
-
-actionHeading.innerText = "Admin Action";
-
-adminRows[0].appendChild(actionHeading);
-
-
-// Add approve and reject buttons
-for (let i = 1; i < adminRows.length; i++) {
-
-    let statusCell = adminRows[i].cells[3];
-
-    let actionCell = document.createElement("td");
-
-    let approveButton = document.createElement("button");
-
-    let rejectButton = document.createElement("button");
-
-
-    approveButton.innerText = "Approve";
-
-    rejectButton.innerText = "Reject";
-
-    rejectButton.style.marginLeft = "5px";
-
-
-    approveButton.addEventListener("click", function () {
-
-        statusCell.innerText = "Verified";
-
-    });
-
-
-    rejectButton.addEventListener("click", function () {
-
-        statusCell.innerText = "Rejected";
-
-    });
-
-
-    actionCell.appendChild(approveButton);
-
-    actionCell.appendChild(rejectButton);
-
-    adminRows[i].appendChild(actionCell);
-
-}
