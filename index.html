@@ -4,45 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CraftNest</title>
+    <title>CraftNest | Handmade with Love</title>
     <link rel="stylesheet" href="new.css">
 </head>
-
 <body>
 
 <header class="header">
     <h1 class="logo">CraftNest.</h1>
-
     <nav>
         <a href="#home">Home</a>
         <a href="#explore">Explore</a>
         <a href="#categories">Categories</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <a href="#admin">Admin</a>
     </nav>
 </header>
 
 <main>
-
-    <!-- HOME SECTION -->
+    <!-- HOME -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <p>CELEBRATING LOCAL CREATIVITY</p>
+            <p class="small-heading">CELEBRATING LOCAL CREATIVITY</p>
             <h2>Discover the Art Behind Every Creation</h2>
-            <p>
-                Explore handmade treasures, meet talented artisans
-                and support traditional Indian craftsmanship.
-            </p>
+            <p>Explore handmade treasures, meet talented artisans and support traditional Indian craftsmanship.</p>
             <a href="#explore" class="btn">Explore Artisans</a>
         </div>
-
         <img src="3e152fc9-b042-4fa6-8ae5-3aeb44acd0d5.png"
              alt="Handmade pottery">
     </section>
 
-    <!-- CATEGORIES SECTION -->
-    <section class="categories" id="categories">
+    <!-- CATEGORIES -->
+    <section class="section" id="categories">
         <h2>Explore Categories</h2>
         <p>Discover art made with passion and creativity.</p>
 
@@ -71,13 +63,12 @@
     </section>
 
     <!-- EXPLORE ARTISANS -->
-    <section class="artisan-list" id="explore">
+    <section class="section artisan-list" id="explore">
         <h2>Explore Local Artisans</h2>
         <p>Discover talented creators and their beautiful work.</p>
-
         <h3>Find Your Favourite Artisan</h3>
 
-        <form class="search-form">
+        <form class="search-form" id="search-form">
             <input type="search" id="artisan-search"
                    placeholder="Search artisan or skill">
 
@@ -93,109 +84,100 @@
                    placeholder="Enter location">
 
             <button type="submit">Search</button>
+            <button type="button" id="reset-search" class="reset-btn">Reset</button>
         </form>
+
+        <p id="search-message" class="search-message"></p>
 
         <div class="artisan-container">
 
-            <article class="artisan-card">
-                <img src="POTTERY.png" alt="Pottery">
+            <article class="artisan-card"
+                     data-name="Ram Kumar"
+                     data-skill="Pottery Artist"
+                     data-category="Pottery"
+                     data-location="Agra">
+                <img src="POTTERY.png" alt="Pottery by Ram Kumar">
                 <h3>RAM KUMAR</h3>
                 <p>Pottery Artist</p>
                 <p>Location: AGRA</p>
-                <a href="#profile" onclick="showProfile('ram')">View Profile</a>
+                <a href="#profile" onclick="showProfile('ram'); return false;">View Profile</a>
                 <button type="button" class="favorite-btn" onclick="favourite(this)">
-    ♡ Favourite
-</button>
+                    ♡ Favourite
+                </button>
             </article>
 
-            <article class="artisan-card">
-                <img src="HANDLOOMM.png" alt="Handloom">
+            <article class="artisan-card"
+                     data-name="Smita Devi"
+                     data-skill="Handloom Artist"
+                     data-category="Handloom"
+                     data-location="Kasol">
+                <img src="HANDLOOMM.png" alt="Handloom by Smita Devi">
                 <h3>SMITA DEVI</h3>
                 <p>Handloom Artist</p>
                 <p>Location: KASOL</p>
-                <a href="#profile" onclick="showProfile('smita')">View Profile</a>
+                <a href="#profile" onclick="showProfile('smita'); return false;">View Profile</a>
                 <button type="button" class="favorite-btn" onclick="favourite(this)">
-    ♡ Favourite
-</button>
+                    ♡ Favourite
+                </button>
             </article>
 
-            <article class="artisan-card">
-                <img src="JEWELLERYY.png" alt="Jewellery">
-                <h3>Neha Singh</h3>
+            <article class="artisan-card"
+                     data-name="Neha Singh"
+                     data-skill="Jewellery Artist"
+                     data-category="Jewellery"
+                     data-location="Patna">
+                <img src="JEWELLERYY.png" alt="Jewellery by Neha Singh">
+                <h3>NEHA SINGH</h3>
                 <p>Jewellery Artist</p>
-                <p>Location: Patna</p>
-                <a href="#profile" onclick="showProfile('neha')">View Profile</a>
+                <p>Location: PATNA</p>
+                <a href="#profile" onclick="showProfile('neha'); return false;">View Profile</a>
                 <button type="button" class="favorite-btn" onclick="favourite(this)">
-    ♡ Favourite
-</button>
+                    ♡ Favourite
+                </button>
             </article>
 
         </div>
     </section>
 
     <!-- FEATURED ARTISANS -->
-    <section class="featured-artisans">
+    <section class="section featured-artisans">
         <h2>Meet Our Artisans</h2>
-
         <div class="artisan-container">
+
             <article class="artisan-card">
-                <img src="POTTERY.png" alt="Pottery">
+                <img src="POTTERY.png" alt="Ram Kumar pottery">
                 <h3>RAM KUMAR</h3>
-                <p>Pottery Artist || AGRA</p>
-                <a href="#profile">View Profile</a>
+                <p>Pottery Artist | AGRA</p>
+                <a href="#profile" onclick="showProfile('ram'); return false;">View Profile</a>
             </article>
 
             <article class="artisan-card">
-                <img src="HANDLOOMM.png" alt="Handloom">
+                <img src="HANDLOOMM.png" alt="Smita Devi handloom">
                 <h3>SMITA DEVI</h3>
-                <p>Handloom Artist || KASOL</p>
-                <a href="#profile">View Profile</a>
+                <p>Handloom Artist | KASOL</p>
+                <a href="#profile" onclick="showProfile('smita'); return false;">View Profile</a>
             </article>
+
         </div>
     </section>
 
-    <!-- ARTISAN PROFILE -->
-    
-<!-- ARTISAN PROFILE -->
-<section class="profile-section" id="profile">
+    <!-- PROFILE -->
+    <section class="profile-section" id="profile">
+        <img id="profile-image" src="POTTERY.png" alt="Artisan profile">
 
-    <img id="profile-image"
-         src="POTTERY.png"
-         alt="Artisan profile">
-
-    <div class="profile-details">
-
-        <h2 id="profile-name">RAM KUMAR</h2>
-
-        <p id="profile-skill">Pottery Artist</p>
-
-        <p id="profile-location">
-            Location: AGRA, UTTAR PRADESH
-        </p>
-
-        <p id="profile-experience">
-            Experience: 8 Years
-        </p>
-
-        <p id="profile-speciality">
-            Speciality: Handmade Clay Art
-        </p>
-
-        <p id="profile-about">
-            I create beautiful handmade pottery inspired
-            by traditional Indian art.
-        </p>
-
-        <a href="#contact" class="btn">
-            Contact Artisan
-        </a>
-
-    </div>
-</section>
-
+        <div class="profile-details">
+            <h2 id="profile-name">RAM KUMAR</h2>
+            <p id="profile-skill">Pottery Artist</p>
+            <p id="profile-location">Location: AGRA, UTTAR PRADESH</p>
+            <p id="profile-experience">Experience: 8 Years</p>
+            <p id="profile-speciality">Speciality: Handmade Clay Art</p>
+            <p id="profile-about">I create beautiful handmade pottery inspired by traditional Indian art.</p>
+            <a href="#contact" class="btn">Contact Artisan</a>
+        </div>
+    </section>
 
     <!-- PORTFOLIO -->
-    <section class="portfolio" id="portfolio">
+    <section class="section portfolio">
         <h2>Artisan Portfolio</h2>
         <p>Explore beautiful handmade creations.</p>
 
@@ -217,37 +199,26 @@
     </section>
 
     <!-- REVIEWS -->
-    <section class="reviews">
+    <section class="section reviews">
         <h2>Customer Reviews</h2>
-        <p>Customer feedback will appear here.</p>
+        <p>Rate an artisan in the Explore section and share your feedback.</p>
     </section>
 
     <!-- ABOUT -->
-    <section class="about-section" id="about">
-        <h2>About KalaConnect</h2>
-        <p>Connecting Local Talent with the World.</p>
+    <section class="section about-section" id="about">
+        <h2>About CraftNest</h2>
+        <p class="center-text">Connecting Local Talent with the World.</p>
 
         <h3>Who We Are</h3>
-        <p>
-            KalaConnect is a digital platform designed to promote
-            local artisans and their traditional handmade products.
-            We help talented creators showcase their skills and
-            connect with potential customers.
-        </p>
+        <p>CraftNest is a digital platform designed to promote local artisans and their traditional handmade products. We help talented creators showcase their skills and connect with potential customers.</p>
 
         <h3>Our Mission</h3>
-        <p>
-            To give local artisans digital visibility and encourage
-            people to support handmade products.
-        </p>
+        <p>To give local artisans digital visibility and encourage people to support handmade products.</p>
 
         <h3>Our Vision</h3>
-        <p>
-            To preserve traditional art and connect talented
-            artisans with a wider audience.
-        </p>
+        <p>To preserve traditional art and connect talented artisans with a wider audience.</p>
 
-        <h3>Why Choose KalaConnect?</h3>
+        <h3>Why Choose CraftNest?</h3>
         <ul>
             <li>Discover talented local artisans.</li>
             <li>Explore unique handmade products.</li>
@@ -257,35 +228,32 @@
     </section>
 
     <!-- CONTACT -->
-    <section class="contact-section" id="contact">
+    <section class="section contact-section" id="contact">
         <h2>Get In Touch</h2>
         <p>Have a question? We would love to hear from you.</p>
 
-        <form class="contact-form">
+        <form class="contact-form" id="contact-form">
             <label for="name">Full Name</label>
-            <input type="text" id="name" name="name"
-                   placeholder="Enter your name" required>
+            <input type="text" id="name" required placeholder="Enter your name">
 
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email"
-                   placeholder="Enter your email" required>
+            <input type="email" id="email" required placeholder="Enter your email">
 
             <label for="subject">Subject</label>
-            <input type="text" id="subject" name="subject"
-                   placeholder="Enter subject">
+            <input type="text" id="subject" placeholder="Enter subject">
 
             <label for="message">Your Message</label>
-            <textarea id="message" name="message"
-                      placeholder="Write your message" required></textarea>
+            <textarea id="message" required placeholder="Write your message"></textarea>
 
             <button type="submit">Send Message</button>
+            <p id="contact-message"></p>
         </form>
     </section>
 
-    <!-- ADMIN PANEL -->
-    <section class="admin-section" id="admin">
+    <!-- ADMIN -->
+    <section class="section admin-section" id="admin">
         <h2>Artisan Verification Panel</h2>
-        <p>Manage artisan profiles and verification requests.</p>
+        <p>Sample artisan verification details.</p>
 
         <table>
             <tr>
@@ -294,30 +262,32 @@
                 <th>Location</th>
                 <th>Status</th>
             </tr>
-
             <tr>
                 <td>RAM KUMAR</td>
                 <td>Pottery</td>
                 <td>AGRA</td>
                 <td>Pending</td>
             </tr>
-
             <tr>
                 <td>SMITA DEVI</td>
                 <td>Handloom</td>
                 <td>KASOL</td>
                 <td>Pending</td>
             </tr>
+            <tr>
+                <td>NEHA SINGH</td>
+                <td>Jewellery</td>
+                <td>PATNA</td>
+                <td>Pending</td>
+            </tr>
         </table>
     </section>
-
 </main>
 
-<!-- FOOTER -->
 <footer class="footer">
-    <h2>KalaConnect.</h2>
+    <h2>CraftNest.</h2>
     <p>Connecting Local Talent with the World.</p>
-    <p>© 2026 KalaConnect. All Rights Reserved.</p>
+    <p>© 2026 CraftNest. All Rights Reserved.</p>
 </footer>
 
 <script src="new.js"></script>
