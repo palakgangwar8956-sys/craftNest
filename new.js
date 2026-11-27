@@ -1,5 +1,7 @@
 
- // SEARCH ARTISAN
+/* =====================================
+   1. SEARCH ARTISAN
+===================================== */
 
 function searchArtisan() {
 
@@ -36,16 +38,20 @@ function searchArtisan() {
     let message = document.getElementById("search-message");
 
     if (message) {
+
         if (found == 0) {
             message.innerText = "No artisans found. Try another search!";
         } else {
             message.innerText = found + " artisan(s) found";
         }
+
     }
 }
 
 
-// SEARCH FORM
+/* =====================================
+   2. SEARCH FORM
+===================================== */
 
 let searchForm = document.querySelector(".search-form");
 
@@ -56,45 +62,62 @@ let categoryFilter = document.getElementById("category-filter");
 let locationFilter = document.getElementById("location-filter");
 
 
-// Show search message
+// Search message
 
 let searchMessage = document.createElement("p");
 
 searchMessage.id = "search-message";
 
-searchForm.appendChild(searchMessage);
+if (searchForm) {
+    searchForm.appendChild(searchMessage);
+}
 
 
-// Search when button is clicked
+// Search button
 
-searchForm.addEventListener("submit", function(event) {
+if (searchForm) {
 
-    event.preventDefault();
+    searchForm.addEventListener("submit", function(event) {
 
-    searchArtisan();
+        event.preventDefault();
 
-});
+        searchArtisan();
+
+    });
+
+}
 
 
 // Search while typing
 
-searchInput.addEventListener("input", searchArtisan);
+if (searchInput) {
+    searchInput.addEventListener("input", searchArtisan);
+}
 
 
 // Search when category changes
 
-categoryFilter.addEventListener("change", searchArtisan);
+if (categoryFilter) {
+    categoryFilter.addEventListener("change", searchArtisan);
+}
 
 
 // Search when location changes
 
-locationFilter.addEventListener("input", searchArtisan);
+if (locationFilter) {
+    locationFilter.addEventListener("input", searchArtisan);
+}
 
-/* ARTISAN RATING */
 
-let artisanCards = document.querySelectorAll(".artisan-card");
+/* =====================================
+   3. ARTISAN RATING
+===================================== */
+
+let artisanCards = document.querySelectorAll(".artisan-list .artisan-card");
 
 artisanCards.forEach(function(card, index) {
+
+    // Get artisan name
 
     let artisanName = card.querySelector("h3");
 
@@ -106,7 +129,11 @@ artisanCards.forEach(function(card, index) {
         ? artisanName.innerText.trim()
         : "artisan-" + index;
 
+
+    // Create rating box
+
     let ratingBox = document.createElement("div");
+
     ratingBox.className = "rating-box";
 
     ratingBox.innerHTML = `
@@ -117,8 +144,15 @@ artisanCards.forEach(function(card, index) {
 
     card.appendChild(ratingBox);
 
+
+    // Get rating elements
+
     let stars = ratingBox.querySelector(".rating-stars");
+
     let message = ratingBox.querySelector(".rating-message");
+
+
+    // Get saved ratings
 
     let savedRatings = JSON.parse(
         localStorage.getItem("craftnest-ratings") || "{}"
@@ -126,16 +160,23 @@ artisanCards.forEach(function(card, index) {
 
     let currentRating = savedRatings[name] || 0;
 
+
+    // Create 5 stars
+
     for (let i = 1; i <= 5; i++) {
 
         let star = document.createElement("button");
 
         star.innerText = "★";
+
         star.style.color = "#f5a623";
         star.style.fontSize = "25px";
         star.style.background = "none";
         star.style.border = "none";
         star.style.cursor = "pointer";
+
+
+        // Show selected stars
 
         if (i <= currentRating) {
             star.style.opacity = "1";
@@ -143,36 +184,59 @@ artisanCards.forEach(function(card, index) {
             star.style.opacity = "0.4";
         }
 
+
+        // Give rating when clicked
+
         star.addEventListener("click", function() {
 
             currentRating = i;
 
             savedRatings[name] = currentRating;
 
+
+            // Save rating in browser
+
             localStorage.setItem(
                 "craftnest-ratings",
                 JSON.stringify(savedRatings)
             );
 
+
+            // Show rating message
+
             message.innerText =
                 "Your rating: " + currentRating + "/5";
+
+
+            // Update star color
 
             let allStars = stars.querySelectorAll("button");
 
             allStars.forEach(function(button, index) {
-                button.style.opacity =
-                    index < currentRating ? "1" : "0.4";
+
+                if (index < currentRating) {
+                    button.style.opacity = "1";
+                } else {
+                    button.style.opacity = "0.4";
+                }
+
             });
 
         });
 
+
         stars.appendChild(star);
+
     }
 
+
+    // Show previously saved rating
+
     if (currentRating > 0) {
+
         message.innerText =
             "Your rating: " + currentRating + "/5";
+
     }
 
 });
-
