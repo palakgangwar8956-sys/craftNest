@@ -1,251 +1,9 @@
 
 /* =====================================
-   1. SEARCH ARTISAN
+   1. ARTISAN PROFILE DATA
 ===================================== */
 
-function searchArtisan() {
-
-    let name = document.getElementById("artisan-search").value.toLowerCase().trim();
-
-    let category = document.getElementById("category-filter").value.toLowerCase().trim();
-
-    let location = document.getElementById("location-filter").value.toLowerCase().trim();
-
-    let cards = document.querySelectorAll(".artisan-list .artisan-card");
-
-    let found = 0;
-
-    for (let i = 0; i < cards.length; i++) {
-
-        let cardText = cards[i].innerText.toLowerCase();
-
-        let nameMatch = cardText.includes(name);
-        let categoryMatch = cardText.includes(category);
-        let locationMatch = cardText.includes(location);
-
-        if (nameMatch && categoryMatch && locationMatch) {
-
-            cards[i].style.display = "";
-            found++;
-
-        } else {
-
-            cards[i].style.display = "none";
-
-        }
-    }
-
-    let message = document.getElementById("search-message");
-
-    if (message) {
-
-        if (found == 0) {
-            message.innerText = "No artisans found. Try another search!";
-        } else {
-            message.innerText = found + " artisan(s) found";
-        }
-
-    }
-}
-
-
-/* =====================================
-   2. SEARCH FORM
-===================================== */
-
-let searchForm = document.querySelector(".search-form");
-
-let searchInput = document.getElementById("artisan-search");
-
-let categoryFilter = document.getElementById("category-filter");
-
-let locationFilter = document.getElementById("location-filter");
-
-
-// Search message
-
-let searchMessage = document.createElement("p");
-
-searchMessage.id = "search-message";
-
-if (searchForm) {
-    searchForm.appendChild(searchMessage);
-}
-
-
-// Search button
-
-if (searchForm) {
-
-    searchForm.addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-        searchArtisan();
-
-    });
-
-}
-
-
-// Search while typing
-
-if (searchInput) {
-    searchInput.addEventListener("input", searchArtisan);
-}
-
-
-// Search when category changes
-
-if (categoryFilter) {
-    categoryFilter.addEventListener("change", searchArtisan);
-}
-
-
-// Search when location changes
-
-if (locationFilter) {
-    locationFilter.addEventListener("input", searchArtisan);
-}
-
-
-/* =====================================
-   3. ARTISAN RATING
-===================================== */
-
-let artisanCards = document.querySelectorAll(".artisan-list .artisan-card");
-
-artisanCards.forEach(function(card, index) {
-
-    // Get artisan name
-
-    let artisanName = card.querySelector("h3");
-
-    if (!artisanName) {
-        artisanName = card.querySelector("h2");
-    }
-
-    let name = artisanName
-        ? artisanName.innerText.trim()
-        : "artisan-" + index;
-
-
-    // Create rating box
-
-    let ratingBox = document.createElement("div");
-
-    ratingBox.className = "rating-box";
-
-    ratingBox.innerHTML = `
-        <p>Rate this artisan:</p>
-        <div class="rating-stars"></div>
-        <p class="rating-message">No rating yet</p>
-    `;
-
-    card.appendChild(ratingBox);
-
-
-    // Get rating elements
-
-    let stars = ratingBox.querySelector(".rating-stars");
-
-    let message = ratingBox.querySelector(".rating-message");
-
-
-    // Get saved ratings
-
-    let savedRatings = JSON.parse(
-        localStorage.getItem("craftnest-ratings") || "{}"
-    );
-
-    let currentRating = savedRatings[name] || 0;
-
-
-    // Create 5 stars
-
-    for (let i = 1; i <= 5; i++) {
-
-        let star = document.createElement("button");
-
-        star.innerText = "★";
-
-        star.style.color = "#f5a623";
-        star.style.fontSize = "25px";
-        star.style.background = "none";
-        star.style.border = "none";
-        star.style.cursor = "pointer";
-
-
-        // Show selected stars
-
-        if (i <= currentRating) {
-            star.style.opacity = "1";
-        } else {
-            star.style.opacity = "0.4";
-        }
-
-
-        // Give rating when clicked
-
-        star.addEventListener("click", function() {
-
-            currentRating = i;
-
-            savedRatings[name] = currentRating;
-
-
-            // Save rating in browser
-
-            localStorage.setItem(
-                "craftnest-ratings",
-                JSON.stringify(savedRatings)
-            );
-
-
-            // Show rating message
-
-            message.innerText =
-                "Your rating: " + currentRating + "/5";
-
-
-            // Update star color
-
-            let allStars = stars.querySelectorAll("button");
-
-            allStars.forEach(function(button, index) {
-
-                if (index < currentRating) {
-                    button.style.opacity = "1";
-                } else {
-                    button.style.opacity = "0.4";
-                }
-
-            });
-
-        });
-
-
-        stars.appendChild(star);
-
-    }
-
-
-    // Show previously saved rating
-
-    if (currentRating > 0) {
-
-        message.innerText =
-            "Your rating: " + currentRating + "/5";
-
-    }
-
-});
-
-/* =====================================
-   ARTISAN PROFILE FIX
-===================================== */
-
-let artisanProfiles = {
+const artisanProfiles = {
     ram: {
         name: "RAM KUMAR",
         skill: "Pottery Artist",
@@ -262,7 +20,7 @@ let artisanProfiles = {
         location: "Location: KASOL",
         experience: "Experience: 5 Years",
         speciality: "Speciality: Traditional Handloom",
-        about: "I create beautiful handmade handloom products.",
+        about: "I create beautiful handmade handloom products using traditional techniques.",
         image: "HANDLOOMM.png"
     },
 
@@ -278,13 +36,16 @@ let artisanProfiles = {
 };
 
 
-// Show selected artisan profile
+/* =====================================
+   2. SHOW ARTISAN PROFILE
+===================================== */
 
 function showProfile(artisanKey) {
+    const artisan = artisanProfiles[artisanKey];
 
-    let artisan = artisanProfiles[artisanKey];
-
-    if (!artisan) return;
+    if (!artisan) {
+        return;
+    }
 
     document.getElementById("profile-name").innerText = artisan.name;
     document.getElementById("profile-skill").innerText = artisan.skill;
@@ -293,6 +54,7 @@ function showProfile(artisanKey) {
     document.getElementById("profile-speciality").innerText = artisan.speciality;
     document.getElementById("profile-about").innerText = artisan.about;
     document.getElementById("profile-image").src = artisan.image;
+    document.getElementById("profile-image").alt = artisan.name;
 
     document.getElementById("profile").scrollIntoView({
         behavior: "smooth"
@@ -300,43 +62,223 @@ function showProfile(artisanKey) {
 }
 
 
-// Explore section profile links
+/* =====================================
+   3. SEARCH ARTISANS
+===================================== */
 
-document.querySelectorAll(".visit-profile").forEach(function(link) {
+const searchForm = document.getElementById("search-form");
+const searchInput = document.getElementById("artisan-search");
+const categoryFilter = document.getElementById("category-filter");
+const locationFilter = document.getElementById("location-filter");
+const searchMessage = document.getElementById("search-message");
 
-    link.addEventListener("click", function(event) {
+function searchArtisan() {
+    const searchText = searchInput.value.toLowerCase().trim();
+    const selectedCategory = categoryFilter.value.toLowerCase().trim();
+    const selectedLocation = locationFilter.value.toLowerCase().trim();
 
-        event.preventDefault();
+    const cards = document.querySelectorAll(".artisan-list .artisan-card");
+    let found = 0;
 
-        let artisanKey = this.getAttribute("data-artisan");
+    cards.forEach(function(card) {
+        const name = card.dataset.name.toLowerCase();
+        const skill = card.dataset.skill.toLowerCase();
+        const category = card.dataset.category.toLowerCase();
+        const location = card.dataset.location.toLowerCase();
 
-        showProfile(artisanKey);
+        const textMatch =
+            name.includes(searchText) || skill.includes(searchText);
 
+        const categoryMatch =
+            selectedCategory === "" || category === selectedCategory;
+
+        const locationMatch =
+            location.includes(selectedLocation);
+
+        if (textMatch && categoryMatch && locationMatch) {
+            card.style.display = "";
+            found++;
+        } else {
+            card.style.display = "none";
+        }
     });
 
+    if (found === 0) {
+        searchMessage.innerText = "No artisans found. Try another search!";
+    } else {
+        searchMessage.innerText = found + " artisan(s) found.";
+    }
+}
+
+searchForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    searchArtisan();
+});
+
+searchInput.addEventListener("input", searchArtisan);
+categoryFilter.addEventListener("change", searchArtisan);
+locationFilter.addEventListener("input", searchArtisan);
+
+
+/* =====================================
+   4. RESET SEARCH
+===================================== */
+
+document.getElementById("reset-search").addEventListener("click", function() {
+    searchInput.value = "";
+    categoryFilter.value = "";
+    locationFilter.value = "";
+
+    document.querySelectorAll(".artisan-list .artisan-card").forEach(function(card) {
+        card.style.display = "";
+    });
+
+    searchMessage.innerText = "Showing all artisans.";
 });
 
 
-// Featured artisans profile links
+/* =====================================
+   5. FAVOURITE ARTISAN
+===================================== */
 
-document.querySelectorAll(".featured-artisans .artisan-card a").forEach(function(link) {
+function getSavedFavourites() {
+    return JSON.parse(localStorage.getItem("craftnest-favourites") || "[]");
+}
 
-    link.addEventListener("click", function(event) {
+function favourite(button) {
+    const card = button.closest(".artisan-card");
+    const artisanName = card.dataset.name;
 
-        event.preventDefault();
+    let favourites = getSavedFavourites();
 
-        let card = this.closest(".artisan-card");
-        let name = card.querySelector("h3").innerText.toLowerCase();
+    if (favourites.includes(artisanName)) {
+        favourites = favourites.filter(function(name) {
+            return name !== artisanName;
+        });
 
-        if (name.includes("ram")) {
-            showProfile("ram");
-        } else if (name.includes("smita")) {
-            showProfile("smita");
-        } else if (name.includes("neha")) {
-            showProfile("neha");
+        button.classList.remove("favourited");
+        button.innerText = "♡ Favourite";
+    } else {
+        favourites.push(artisanName);
+
+        button.classList.add("favourited");
+        button.innerText = "♥ Favourite";
+    }
+
+    localStorage.setItem(
+        "craftnest-favourites",
+        JSON.stringify(favourites)
+    );
+}
+
+function loadFavourites() {
+    const favourites = getSavedFavourites();
+
+    document.querySelectorAll(".artisan-list .artisan-card").forEach(function(card) {
+        const name = card.dataset.name;
+        const button = card.querySelector(".favorite-btn");
+
+        if (favourites.includes(name)) {
+            button.classList.add("favourited");
+            button.innerText = "♥ Favourite";
+        }
+    });
+}
+
+loadFavourites();
+
+
+/* =====================================
+   6. ARTISAN RATINGS
+===================================== */
+
+function getSavedRatings() {
+    return JSON.parse(localStorage.getItem("craftnest-ratings") || "{}");
+}
+
+function createRatings() {
+    const cards = document.querySelectorAll(".artisan-list .artisan-card");
+
+    cards.forEach(function(card) {
+        const artisanName = card.dataset.name;
+
+        const ratingBox = document.createElement("div");
+        ratingBox.className = "rating-box";
+
+        ratingBox.innerHTML = `
+            <p>Rate this artisan:</p>
+            <div class="rating-stars"></div>
+            <p class="rating-message">No rating yet</p>
+        `;
+
+        card.appendChild(ratingBox);
+
+        const starsContainer = ratingBox.querySelector(".rating-stars");
+        const ratingMessage = ratingBox.querySelector(".rating-message");
+
+        let ratings = getSavedRatings();
+        let currentRating = ratings[artisanName] || 0;
+
+        function updateStars() {
+            const stars = starsContainer.querySelectorAll("button");
+
+            stars.forEach(function(star, index) {
+                if (index < currentRating) {
+                    star.style.opacity = "1";
+                } else {
+                    star.style.opacity = "0.4";
+                }
+            });
         }
 
+        for (let i = 1; i <= 5; i++) {
+            const star = document.createElement("button");
+
+            star.type = "button";
+            star.innerText = "★";
+            star.setAttribute("aria-label", "Rate " + i + " out of 5");
+
+            star.addEventListener("click", function() {
+                currentRating = i;
+
+                ratings = getSavedRatings();
+                ratings[artisanName] = currentRating;
+
+                localStorage.setItem(
+                    "craftnest-ratings",
+                    JSON.stringify(ratings)
+                );
+
+                ratingMessage.innerText = "Your rating: " + currentRating + "/5";
+                updateStars();
+            });
+
+            starsContainer.appendChild(star);
+        }
+
+        if (currentRating > 0) {
+            ratingMessage.innerText = "Your rating: " + currentRating + "/5";
+        }
+
+        updateStars();
     });
+}
 
+createRatings();
+
+
+/* =====================================
+   7. CONTACT FORM DEMO
+===================================== */
+
+const contactForm = document.getElementById("contact-form");
+const contactMessage = document.getElementById("contact-message");
+
+contactForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    contactMessage.innerText =
+        "Thank you! Your message has been recorded for this demo.";
+
+    contactForm.reset();
 });
-
