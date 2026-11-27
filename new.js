@@ -79,58 +79,54 @@ function showArtisanCount() {
 }
 
 // ARTISAN PROFILE: show the selected artisan
-let artisanProfiles = {
-    ram: {
-        name: "RAM KUMAR",
-        image: "POTTERY.png",
-        skill: "Pottery Artist",
-        location: "AGRA, UTTAR PRADESH",
-        experience: "8 Years",
-        speciality: "Handmade Clay Art",
-        about: "I create beautiful handmade pottery inspired by traditional Indian art."
-    },
-    smita: {
-        name: "SMITA DEVI",
-        image: "HANDLOOMM.png",
-        skill: "Handloom Artist",
-        location: "KASOL, HIMACHAL PRADESH",
-        experience: "6 Years",
-        speciality: "Traditional Handloom Weaving",
-        about: "I create traditional handloom products with care and creativity."
-    },
-    neha: {
-        name: "NEHA SINGH",
-        image: "JEWELLERYY.png",
-        skill: "Jewellery Artist",
-        location: "PATNA, BIHAR",
-        experience: "5 Years",
-        speciality: "Handmade Jewellery",
-        about: "I make unique handmade jewellery inspired by Indian designs."
+function showProfile(selectedArtisan) {
+    let profile;
+
+    if (selectedArtisan == "ram") {
+        profile = {
+            name: "RAM KUMAR",
+            image: "POTTERY.png",
+            skill: "Pottery Artist",
+            location: "AGRA, UTTAR PRADESH",
+            experience: "8 Years",
+            speciality: "Handmade Clay Art",
+            about: "I create beautiful handmade pottery inspired by traditional Indian art."
+        };
+    } else if (selectedArtisan == "smita") {
+        profile = {
+            name: "SMITA DEVI",
+            image: "HANDLOOMM.png",
+            skill: "Handloom Artist",
+            location: "KASOL, HIMACHAL PRADESH",
+            experience: "6 Years",
+            speciality: "Traditional Handloom Weaving",
+            about: "I create traditional handloom products with care and creativity."
+        };
+    } else if (selectedArtisan == "neha") {
+        profile = {
+            name: "NEHA SINGH",
+            image: "JEWELLERYY.png",
+            skill: "Jewellery Artist",
+            location: "PATNA, BIHAR",
+            experience: "5 Years",
+            speciality: "Handmade Jewellery",
+            about: "I make unique handmade jewellery inspired by Indian designs."
+        };
     }
-};
 
-let profileLinks = document.getElementsByClassName("visit-profile");
+    if (profile) {
+        let profileSection = document.getElementById("profile");
+        let profileImage = profileSection.getElementsByTagName("img")[0];
+        let profileDetails = profileSection.getElementsByClassName("profile-details")[0];
+        let profileTexts = profileDetails.getElementsByTagName("p");
 
-for (let i = 0; i < profileLinks.length; i++) {
-    profileLinks[i].addEventListener("click", function () {
-        let selectedArtisan = this.getAttribute("data-artisan");
-        let profile = artisanProfiles[selectedArtisan];
-
-        if (profile) {
-            let profileSection = document.getElementById("profile");
-            let profileImage = profileSection.getElementsByTagName("img")[0];
-            let profileDetails = profileSection.getElementsByClassName("profile-details")[0];
-            let profileTexts = profileDetails.getElementsByTagName("p");
-
-            profileImage.src = profile.image;
-            profileImage.alt = profile.name + " profile";
-            profileDetails.getElementsByTagName("h2")[0].innerText = profile.name;
-            profileTexts[0].innerText = profile.skill;
-            profileTexts[1].innerText = "Location: " + profile.location;
-            profileTexts[2].innerText = "Experience: " + profile.experience;
-            profileTexts[3].innerText = "Speciality: " + profile.speciality;
-            profileTexts[4].innerText = profile.about;
-        }
-    });
+        profileImage.src = profile.image;
+        profileImage.alt = profile.name + " profile";
+        profileDetails.getElementsByTagName("h2")[0].innerText = profile.name;
+        profileTexts[0].innerText = profile.skill;
+        profileTexts[1].innerText = "Location: " + profile.location;
+        profileTexts[2].innerText = "Experience: " + profile.experience;
+        profileTexts[3].innerText = "Speciality: " + profile.speciality;
+        profileTexts[4].innerText = profile.about;
+    }
 }
-
