@@ -102,7 +102,7 @@
                 <h3>RAM KUMAR</h3>
                 <p>Pottery Artist</p>
                 <p>Location: AGRA</p>
-                <a href="#profile" class="visit-profile" data-artisan="ram" onclick="showProfile('ram')">View Profile</a>
+                <a href="#profile" class="visit-profile" data-artisan="ram">View Profile</a>
                 <button type="button" class="favorite-btn" onclick="favourite(this)">
     ♡ Favourite
 </button>
@@ -113,7 +113,7 @@
                 <h3>SMITA DEVI</h3>
                 <p>Handloom Artist</p>
                 <p>Location: KASOL</p>
-                <a href="#profile" class="visit-profile" data-artisan="smita" onclick="showProfile('smita')">View Profile</a>
+                <a href="#profile" class="visit-profile" data-artisan="smita">View Profile</a>
                 <button type="button" class="favorite-btn" onclick="favourite(this)">
     ♡ Favourite
 </button>
@@ -124,7 +124,7 @@
                 <h3>Neha Singh</h3>
                 <p>Jewellery Artist</p>
                 <p>Location: Patna</p>
-                <a href="#profile" class="visit-profile" data-artisan="neha" onclick="showProfile('neha')">View Profile</a>
+                <a href="#profile" class="visit-profile" data-artisan="neha">View Profile</a>
                 <button type="button" class="favorite-btn" onclick="favourite(this)">
     ♡ Favourite
 </button>
@@ -142,37 +142,57 @@
                 <img src="POTTERY.png" alt="Pottery">
                 <h3>RAM KUMAR</h3>
                 <p>Pottery Artist || AGRA</p>
-                <a href="#profile" class="visit-profile" data-artisan="ram" onclick="showProfile('ram')">View Profile</a>
+                <a href="#profile">View Profile</a>
             </article>
 
             <article class="artisan-card">
                 <img src="HANDLOOMM.png" alt="Handloom">
                 <h3>SMITA DEVI</h3>
                 <p>Handloom Artist || KASOL</p>
-                <a href="#profile" class="visit-profile" data-artisan="smita" onclick="showProfile('smita')">View Profile</a>
+                <a href="#profile">View Profile</a>
             </article>
         </div>
     </section>
 
     <!-- ARTISAN PROFILE -->
-    <section class="profile-section" id="profile">
-        <img src="POTTERY.png" alt="Artisan pottery">
+    
+<!-- ARTISAN PROFILE -->
+<section class="profile-section" id="profile">
 
-        <div class="profile-details">
-            <h2>RAM KUMAR</h2>
-            <p>Pottery Artist</p>
-            <p>Location: AGRA, UTTAR PRADESH</p>
-            <p>Experience: 8 Years</p>
-            <p>Speciality: Handmade Clay Art</p>
+    <img id="profile-image"
+         src="POTTERY.png"
+         alt="Artisan profile">
 
-            <p>
-                I create beautiful handmade pottery inspired
-                by traditional Indian art.
-            </p>
+    <div class="profile-details">
 
-            <a href="#contact" class="btn">Contact Artisan</a>
-        </div>
-    </section>
+        <h2 id="profile-name">RAM KUMAR</h2>
+
+        <p id="profile-skill">Pottery Artist</p>
+
+        <p id="profile-location">
+            Location: AGRA, UTTAR PRADESH
+        </p>
+
+        <p id="profile-experience">
+            Experience: 8 Years
+        </p>
+
+        <p id="profile-speciality">
+            Speciality: Handmade Clay Art
+        </p>
+
+        <p id="profile-about">
+            I create beautiful handmade pottery inspired
+            by traditional Indian art.
+        </p>
+
+        <a href="#contact" class="btn">
+            Contact Artisan
+        </a>
+
+    </div>
+</section>
+
 
     <!-- PORTFOLIO -->
     <section class="portfolio" id="portfolio">
@@ -300,6 +320,6 @@
     <p>© 2026 KalaConnect. All Rights Reserved.</p>
 </footer>
 
-<script src="new.js?v=profilefix2"></script>
+<script src="new.js"></script>
 </body>
 </html>
