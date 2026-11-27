@@ -240,3 +240,103 @@ artisanCards.forEach(function(card, index) {
     }
 
 });
+
+/* =====================================
+   ARTISAN PROFILE FIX
+===================================== */
+
+let artisanProfiles = {
+    ram: {
+        name: "RAM KUMAR",
+        skill: "Pottery Artist",
+        location: "Location: AGRA, UTTAR PRADESH",
+        experience: "Experience: 8 Years",
+        speciality: "Speciality: Handmade Clay Art",
+        about: "I create beautiful handmade pottery inspired by traditional Indian art.",
+        image: "POTTERY.png"
+    },
+
+    smita: {
+        name: "SMITA DEVI",
+        skill: "Handloom Artist",
+        location: "Location: KASOL",
+        experience: "Experience: 5 Years",
+        speciality: "Speciality: Traditional Handloom",
+        about: "I create beautiful handmade handloom products.",
+        image: "HANDLOOMM.png"
+    },
+
+    neha: {
+        name: "NEHA SINGH",
+        skill: "Jewellery Artist",
+        location: "Location: PATNA",
+        experience: "Experience: 4 Years",
+        speciality: "Speciality: Handmade Jewellery",
+        about: "I create beautiful handmade jewellery inspired by Indian crafts.",
+        image: "JEWELLERYY.png"
+    }
+};
+
+
+// Show selected artisan profile
+
+function showProfile(artisanKey) {
+
+    let artisan = artisanProfiles[artisanKey];
+
+    if (!artisan) return;
+
+    document.getElementById("profile-name").innerText = artisan.name;
+    document.getElementById("profile-skill").innerText = artisan.skill;
+    document.getElementById("profile-location").innerText = artisan.location;
+    document.getElementById("profile-experience").innerText = artisan.experience;
+    document.getElementById("profile-speciality").innerText = artisan.speciality;
+    document.getElementById("profile-about").innerText = artisan.about;
+    document.getElementById("profile-image").src = artisan.image;
+
+    document.getElementById("profile").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+
+// Explore section profile links
+
+document.querySelectorAll(".visit-profile").forEach(function(link) {
+
+    link.addEventListener("click", function(event) {
+
+        event.preventDefault();
+
+        let artisanKey = this.getAttribute("data-artisan");
+
+        showProfile(artisanKey);
+
+    });
+
+});
+
+
+// Featured artisans profile links
+
+document.querySelectorAll(".featured-artisans .artisan-card a").forEach(function(link) {
+
+    link.addEventListener("click", function(event) {
+
+        event.preventDefault();
+
+        let card = this.closest(".artisan-card");
+        let name = card.querySelector("h3").innerText.toLowerCase();
+
+        if (name.includes("ram")) {
+            showProfile("ram");
+        } else if (name.includes("smita")) {
+            showProfile("smita");
+        } else if (name.includes("neha")) {
+            showProfile("neha");
+        }
+
+    });
+
+});
+
